@@ -21,7 +21,7 @@ pipeline{
            
         }
         
-        stage('Build Image'){
+        stage('Create Dockerfile'){
             steps{   
                 sh '''
                     rm -rf jenkins-dockerimages2
