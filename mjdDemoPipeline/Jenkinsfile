@@ -35,8 +35,8 @@ pipeline{
                     CMD "catalina.sh" "run"
                     EXPOSE 8080
                     EOT
-                    sudo docker build -t mydeploy2:$BUILD_NUMBER .
-                    sudo docker run -itd -P mydeploy2:$BUILD_NUMBER
+                    docker build -t mydeploy2:$BUILD_NUMBER .
+                    docker run -itd -P mydeploy2:$BUILD_NUMBER
                 '''
             }
         } 
