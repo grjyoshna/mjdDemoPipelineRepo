@@ -35,11 +35,17 @@ pipeline{
                     CMD "catalina.sh" "run"
                     EXPOSE 8080
                     EOT
-                    docker build -t mydeploy2:$BUILD_NUMBER .
-                    docker run -itd -P mydeploy2:$BUILD_NUMBER
+                   
                 '''
             }
         } 
+        
+        stage('Build Image'){
+            steps{
+               sh 'docker build -t mydeploy2:$BUILD_NUMBER .'
+               sh 'docker run -itd -P mydeploy2:$BUILD_NUMBER'
+            }
+        }
        
  
       
