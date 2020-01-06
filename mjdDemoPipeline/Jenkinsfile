@@ -24,9 +24,7 @@ pipeline{
         stage('Create Dockerfile'){
             steps{   
                 sh '''
-                    rm -rf jenkins-dockerimages2
-                    mkdir jenkins-dockerimages2
-                    cd jenkins-dockerimages2
+                   
                     cp /var/lib/jenkins/workspace/mjd_pipeline/mjdDemoPipeline/target/mjdDemoPipeline-0.0.1-SNAPSHOT.war .
                     touch Dockerfile
                     cat <<EOT>> Dockerfile
