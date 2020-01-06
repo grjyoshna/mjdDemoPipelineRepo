@@ -21,6 +21,25 @@ pipeline{
            
         }
         
+        stage('Build Image'){
+            steps{   
+                sh '''
+                    rm -rf jenkins-dockerimages2
+                    mkdir jenkins-dockerimages2
+                    cd jenkins-dockerimages2
+                    cp /var/lib/jenkins/workspace/mjd_pipeline/mjdDemoPipeline/target/mjdDemoPipeline-0.0.1-SNAPSHOT.war .
+                    touch dockerfile
+                    cat <<EOT>> dockerfile
+                    From tomcat
+                    ADD mjdDemoPipeline-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps
+                    CMD "catalina.sh" "run"
+                    EXPOSE 8080
+                    EOT
+                    sudo docker build -t mydeploy2:$BUILD_NUMBER .
+                    sudo docker run -itd -P mydeploy2:$BUILD_NUMBER
+                '''
+            }
+        } 
        
  
       
