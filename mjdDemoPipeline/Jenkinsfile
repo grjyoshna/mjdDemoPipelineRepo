@@ -22,20 +22,7 @@ pipeline{
         }
        
         
-        stage('Copy Path of Build'){
-            steps{
-               sh 'cp /var/lib/jenkins/workspace/mjd_pipeline/mjdDemoPipeline/target/mjdDemoPipeline-0.0.1-SNAPSHOT.war .'
-              
-            }
-        }
-        
-        stage('Build Docker Image')
-        {
-            steps{
-                sh 'sudo docker build -t mydeploy7:$BUILD_NUMBER .'
-                sh 'sudo docker run -itd -P mydeploy7:$BUILD_NUMBER'
-            }
-        }
+      
         
        
  
