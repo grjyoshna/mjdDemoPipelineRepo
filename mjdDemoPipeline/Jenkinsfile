@@ -22,10 +22,25 @@ pipeline{
         }
        
         
-        stage('Build Image'){
+        stage('Copy Path of Build'){
             steps{
-               sh 'sudo docker build -t mydeploy2:$BUILD_NUMBER .'
-               sh 'sudo docker run -itd -P mydeploy2:$BUILD_NUMBER'
+               sh 'cp /var/lib/jenkins/workspace/mjd_pipeline/mjdDemoPipeline/target/mjdDemoPipeline-0.0.1-SNAPSHOT.war .'
+              
+            }
+        }
+        
+        stage('Build Docker Image')
+        {
+            steps{
+                sh 'sudo docker build -t mydeploy7:$BUILD_NUMBER .'
+                sh 'sudo docker run -itd -P mydeploy7:$BUILD_NUMBER'
+            }
+        }
+        stage('Push To Docker Hub'){
+            steps{
+                sh 'IMAGE_ID=$(sudo docker images --filter=reference=mydeploy7 --format "{{.ID}}")'
+                sh 'sudo docker tag $IMAGE_ID grjyoshna/mjd:tag4'
+                sh 'sudo docker push  grjyoshna/mjd:tag4'
             }
         }
        
